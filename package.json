@@ -10,9 +10,11 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "chai": "4.2.0",
+    "mocha": "6.2.2"
   },
-  "engines": {
+  "mocha": "6.2.2"  "engines": {
     "node": "8.x"
   },
   "repository": {
