@@ -44,18 +44,17 @@ describe('/api/exams route tests', function() {
       chai.request(server)
       .post('/api/exams')
       .send({
-        semester: 9909,
         uniqueId: 000001,  //test data needs to include course with this uniqueId
         examName: 'Exam 1',
         examDate: '9/9/1999',
         examStart: 0800,
         examEnd: 0930,
         examSoftware: 'examsoft',
-        examSemester: '9909',
+        examSemester: 9909,
         examDuration: 90,
         emailFaculty: false,
         facultyConfirmed: false,
-        building: cns,
+        building: 'cns',
         room: '101',
         examNotes: "",
         supportPerson: "",
@@ -76,7 +75,7 @@ describe('/api/exams route tests', function() {
           assert.equal(res.body.examDuration, 90);
           assert.equal(res.body.emailFaculty, false);
           assert.equal(res.body.facultyConfirmed, false);
-          assert.equal(res.body.building, cns);
+          assert.equal(res.body.building, 'cns');
           assert.equal(res.body.room, '101');
           assert.equal(res.body.examNotes, "");
           assert.equal(res.body.supportPerson, "");
@@ -98,14 +97,32 @@ describe('/api/exams route tests', function() {
         examId: testExamId
       })
       .send({
-        //insert update fields here
+        examDate: '10/1/1999',
+        examStart: 0930,
+        examEnd: 1050,
+        facultyConfirmed: true,
+        builidng: 'law',
+        room: '204',
+        examNotes: "Test note for testing purposes.",
+        supportPerson: "Grittwald Grittington"
+
       })
       .end(function(err, res) {
         if(err){done(err)}
-        else(
-          //insert assertion tests here
+        else{
+          assert.equal(res.status, 200);
+          assert.equal(res.body.examDate, '10/1/1999');
+          assert.equal(res.body.examStart, 0930);
+          assert.equal(res.body.examEnd, 1050);
+          assert.equal(res.body.facultyConfirmed, true);
+          assert.equal(res.body.building, 'law');
+          assert.equal(res.body.room, '204');
+          assert.equal(res.body.examsNotes, "Test note for testing purposes.");
+          assert.equal(res.body.supportPerson, "Grittwald Grittington");
+          assert.equal(res.body.examId, testExamId);
+
           done()
-          )
+          }
         })
       })    
     })
