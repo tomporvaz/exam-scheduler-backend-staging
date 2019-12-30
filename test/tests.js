@@ -254,3 +254,46 @@ describe('api/courses?uniqueId=########', function(){
     })
   })
 })
+
+
+describe('/api/exam-warnings', function(){
+  describe('?semester=#### GET', function(){
+    it('responds with JSON of all of semesters warnings', function(done){
+      chai.request(server)
+      .get('/api/exam-warnings?semester=9909')
+      .end(function(err, res){
+        if(err){done(err)}
+        else{
+          assert.equal(res.status, 200);
+          assert.property(res.body[0], 'conflictId');
+          assert.property(res.body[0], 'examsInConflict');
+          assert.isArray(res.body[0].examsInConflict);
+          assert.property(res.body[0], 'conflictLevel');
+          assert.property(res.body[0], 'conflictIgnored');
+
+          done();
+        }
+      })
+    })
+  })
+
+  describe('?conflictId=####### PUT', function(){
+    it('update ignored boolean by conflictId', function(done){
+      chai.request(server)
+      .put('/api/exam-warnings?conflictId=0000001') //test data needs to include this conflictId
+      .send({
+        conflictIgnored: true
+      })
+      .end(function(err, res){
+        if(err){done(err)}
+        else{
+          assert.equal(res.status, 200);
+          assert.equal(res.body.conflictId, 0000001);
+          assert.equal(res.body.conflictIgnored, true);
+
+          done();
+        }
+      })
+    })
+  })
+})
