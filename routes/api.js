@@ -46,4 +46,5 @@ module.exports = function (app) {
   
   .get(function (req, res){
     res.send("Success, /api/courses GET route setup!")
-  }
+  })
+}
