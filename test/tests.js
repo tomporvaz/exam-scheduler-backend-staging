@@ -6,6 +6,7 @@ var server = require('../server');
 chai.use(chaiHttp);
 
 describe('/api/exams route tests', function() {
+  let testExamId = '';
   describe('GET', function() {
     it('should respond with list of exams', function(done) {
       chai.request(server)
@@ -24,6 +25,7 @@ describe('/api/exams route tests', function() {
           assert.property(res.body[0], 'examEnd');
           assert.property(res.body[0], 'examSoftware');
           assert.property(res.body[0], 'examSemester');
+          assert.equal(res.body[0].examSemester, 9909);
           assert.property(res.body[0], 'examDuration');
           assert.property(res.body[0], 'emailFaculty');
           assert.property(res.body[0], 'facultyConfirmed');
@@ -32,12 +34,73 @@ describe('/api/exams route tests', function() {
           assert.property(res.body[0], 'examNotes');
           assert.property(res.body[0], 'supportPerson');
           assert.property(res.body[0], 'approved');
-          assert.property(res.body[0], 'semester');
-          assert.equal(res.body[0].semester, 9909);
           done();
         }    
       })
-      
     });
   });
+  describe('POST', function() {
+    it('add new exam to exams collection', function(done){
+      chai.request(server)
+      .post('/api/exams')
+      .send({
+        semester: 9909,
+        uniqueId: 000001,  //test data needs to include course with this uniqueId
+        examName: 'Exam 1',
+        examDate: '9/9/1999',
+        examStart: 0800,
+        examEnd: 0930,
+        examSoftware: 'examsoft',
+        examSemester: '9909',
+        examDuration: 90,
+        emailFaculty: false,
+        facultyConfirmed: false,
+        building: cns,
+        room: '101',
+        examNotes: "",
+        supportPerson: "",
+        approved: null,
+      })
+      .end(function(err, res) {
+        if(err){done(err)}
+        else{
+          assert.equal(res.status, 200);
+          assert.equal(res.body.semester, 9909);
+          assert.equal(res.body.uniqueId, 000001);
+          assert.equal(res.body.examName, 'Exam 1');
+          assert.equal(res.body.examDate, '9/9/1999');
+          assert.equal(res.body.examStart, 0800);
+          assert.equal(res.body.examEnd, 0930);
+          assert.equal(res.body.examSoftware, 'examsoft');
+          assert.equal(res.body.examSemester, '9909');
+          assert.equal(res.body.examDuration, 90);
+          assert.equal(res.body.emailFaculty, false);
+          assert.equal(res.body.facultyConfirmed, false);
+          assert.equal(res.body.building, cns);
+          assert.equal(res.body.room, '101');
+          assert.equal(res.body.examNotes, "");
+          assert.equal(res.body.supportPerson, "");
+          assert.equal(res.body.approved, null);
+          
+          assert.isOk(res.body.examId);
+          testExamId = res.body.examId;
+          
+          done();
+        }
+      })
+    })
+  })
+  describe('PUT', function () {
+    it('update existing exam', function (done) {
+      chai.request(server)
+      .put('/api/exams')
+      .query({
+        examId: testExamId
+      })
+      .send({
+        //insert update fields here
+        done();  //delete this line
+      })
+    })    
+  })
 });
