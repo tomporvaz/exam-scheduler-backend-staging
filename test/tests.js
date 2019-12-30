@@ -99,8 +99,14 @@ describe('/api/exams route tests', function() {
       })
       .send({
         //insert update fields here
-        done();  //delete this line
       })
-    })    
-  })
-});
+      .end(function(err, res) {
+        if(err){done(err)}
+        else(
+          //insert assertion tests here
+          done()
+          )
+        })
+      })    
+    })
+  });
