@@ -5,7 +5,7 @@ var server = require('../server');
 
 chai.use(chaiHttp);
 
-describe('/api/exams route tests', function() {
+describe('/api/exams', function() {
   let testExamId = '';
   describe('GET', function() {
     it('should respond with list of exams', function(done) {
@@ -92,10 +92,7 @@ describe('/api/exams route tests', function() {
   describe('PUT', function () {
     it('update existing exam', function (done) {
       chai.request(server)
-      .put('/api/exams')
-      .query({
-        examId: testExamId
-      })
+      .put(`/api/exams?examId=${testExamId}`)
       .send({
         examDate: '10/1/1999',
         examStart: 0930,
@@ -105,7 +102,7 @@ describe('/api/exams route tests', function() {
         room: '204',
         examNotes: "Test note for testing purposes.",
         supportPerson: "Grittwald Grittington"
-
+        
       })
       .end(function(err, res) {
         if(err){done(err)}
@@ -120,81 +117,140 @@ describe('/api/exams route tests', function() {
           assert.equal(res.body.examsNotes, "Test note for testing purposes.");
           assert.equal(res.body.supportPerson, "Grittwald Grittington");
           assert.equal(res.body.examId, testExamId);
-
+          
           done()
-          }
-        })
-      })    
-    })
-  });
-
-
-  describe('/api/courses', function (){
-    describe('GET', function (){
-      it('response with JSON of courses in semester', function (done){
-        chai.request(server)
-        .get('/api/courses')
-        .query({
-          semester: 9909
-        })
-        .end( function(err, res) {
-          if(err){done(err)}
-          else{
-            assert.equal(res.status, 200);
-            assert.property(res.body[0], 'semester');
-            assert.equal(res.body[0].semester, 9909);
-            assert.property(res.body[0], 'unit');
-            assert.property(res.body[0], 'subject');
-            assert.property(res.body[0], 'course');
-            assert.property(res.body[0], 'section');
-            assert.property(res.body[0], 'index');
-            assert.property(res.body[0], 'courseTitle');
-            assert.property(res.body[0], 'assignedInstructor');
-            assert.property(res.body[0], 'day');
-            assert.property(res.body[0], 'startTime');
-            assert.property(res.body[0], 'endTime');
-            assert.property(res.body[0], 'building');
-            assert.property(res.body[0], 'room');
-            assert.property(res.body[0], 'program');
-            assert.property(res.body[0], 'level');
-            assert.property(res.body[0], 'uniqueId');
-            assert.property(res.body[0], 'examsoft');
-            assert.property(res.body[0], 'final');
-            assert.property(res.body[0], 'enrollment');
-            assert.property(res.body[0], 'sectionNickname');
-
-            done();
-          }
-        })
+        }
       })
-    })
-
-
-    describe('POST', function(){
-      it('upload/add a set of courses', function(done){
-        chai.request(server)
-        .post('/api/courses')
-        .query({
-          semester: 9909
-        })
-        /*
-        TODO:
-        attach sample file using ".attach(field, file, attachment)",
-        e.g. .attach('imageField', fs.readFileSync('avatar.png'), 'avatar.png')
-        THEN remove courses after tests using Mocha methods.
-        */
-        .end(function (err, res){
-          if(err){
-            done(err)
-          } else {
-            //insert assertion tests here
-            assert.fail("upload file attachment test not setup yet.")
-            done();
-          }
-        })
-      })
-    })
-
-
-
+    })    
   })
+});
+
+
+describe('/api/courses?semester=####', function (){
+  describe('GET', function (){
+    it('response with JSON of courses in semester', function (done){
+      chai.request(server)
+      .get('/api/courses')
+      .query({
+        semester: 9909
+      })
+      .end( function(err, res) {
+        if(err){done(err)}
+        else{
+          assert.equal(res.status, 200);
+          assert.property(res.body[0], 'semester');
+          assert.equal(res.body[0].semester, 9909);
+          assert.property(res.body[0], 'unit');
+          assert.property(res.body[0], 'subject');
+          assert.property(res.body[0], 'course');
+          assert.property(res.body[0], 'section');
+          assert.property(res.body[0], 'index');
+          assert.property(res.body[0], 'courseTitle');
+          assert.property(res.body[0], 'assignedInstructor');
+          assert.property(res.body[0], 'day');
+          assert.property(res.body[0], 'startTime');
+          assert.property(res.body[0], 'endTime');
+          assert.property(res.body[0], 'building');
+          assert.property(res.body[0], 'room');
+          assert.property(res.body[0], 'program');
+          assert.property(res.body[0], 'level');
+          assert.property(res.body[0], 'uniqueId');
+          assert.property(res.body[0], 'examsoft');
+          assert.property(res.body[0], 'final');
+          assert.property(res.body[0], 'enrollment');
+          assert.property(res.body[0], 'sectionNickname');
+          
+          done();
+        }
+      })
+    })
+  })
+  
+  
+  describe('POST', function(){
+    it('upload/add a set of courses', function(done){
+      chai.request(server)
+      .post('/api/courses?semester=9909')
+      /*
+      TODO:
+      attach sample file using ".attach(field, file, attachment)",
+      e.g. .attach('imageField', fs.readFileSync('avatar.png'), 'avatar.png')
+      THEN remove courses after tests using Mocha methods.
+      */
+      .end(function (err, res){
+        if(err){
+          done(err)
+        } else {
+          //insert assertion tests here
+          assert.fail("upload file attachment test not setup yet.")
+          done();
+        }
+      })
+    })
+  })
+})
+
+
+describe('api/courses?uniqueId=########', function(){
+  describe('GET', function(){
+    it('get full course object', function(done){
+      chai.request(server)
+      .get('/api/courses?uniqueId=000001')
+      .end(function(err, res){
+        if(err){done(err)}
+        else{
+          assert.equal(res.status, 200);
+          assert.property(res.body[0], 'semester');
+          assert.equal(res.body[0].semester, 9909);
+          assert.property(res.body, 'unit');
+          assert.property(res.body, 'subject');
+          assert.property(res.body, 'course');
+          assert.property(res.body, 'section');
+          assert.property(res.body, 'index');
+          assert.property(res.body, 'courseTitle');
+          assert.property(res.body, 'assignedInstructor');
+          assert.property(res.body, 'day');
+          assert.property(res.body, 'startTime');
+          assert.property(res.body, 'endTime');
+          assert.property(res.body, 'building');
+          assert.property(res.body, 'room');
+          assert.property(res.body, 'program');
+          assert.property(res.body, 'level');
+          assert.property(res.body, 'uniqueId');
+          assert.property(res.body, 'examsoft');
+          assert.property(res.body, 'final');
+          assert.property(res.body, 'enrollment');
+          assert.property(res.body, 'sectionNickname');
+
+          done();
+        }
+      })
+    })
+  })
+
+  describe('PUT', function(){
+    it('update details about course without changing uniqueId', function(done){
+      chai.request(server)
+      .put('/api/courses?uniqueId=000001')
+      .send({
+        assignedInstructor: "Professor X",
+        buidling: "atg",
+        room: "231",
+        examsoft: true
+      })
+      .end(function(err, res){
+        if(err){done(err)}
+        else{
+          assert.equal(res.status, 200);
+          assert.equal(res.body.uniqueId, 000001);
+          assert.equal(res.body.assignedInstructor, "Professor X");
+          assert.equal(res.body.building, "atg");
+          assert.equal(res.body.room, "231");
+          assert.equal(res.body.examsoft, true);
+
+          done();
+        }
+      })
+    })
+  })
+})
