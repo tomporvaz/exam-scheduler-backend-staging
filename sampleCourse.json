@@ -1,0 +1,24 @@
+[
+  {
+    "uniqueId": 856143841,
+    "semester": "9909",
+    "unit": "99",
+    "subject": "999",
+    "course": "990",
+    "section": "99",
+    "index": "10000",
+    "courseTitle": "BRAIN SCI FNDTS I",
+    "assignedInstructor": "Smartypants, Jone",
+    "day": "T",
+    "startTime": "08:00",
+    "endTime": "10:50",
+    "building": "ABC",
+    "room": "100",
+    "program": "Doctoral",
+    "level": "1st Year",
+    "examsoft": true,
+    "final": true,
+    "enrollment": 87,
+    "sectionNickname": "BRAIN99"
+  }
+]

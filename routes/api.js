@@ -45,6 +45,19 @@ module.exports = function (app) {
   app.route('/api/courses')
   
   .get(function (req, res){
-    res.send("Success, /api/courses GET route setup!")
+
+    //retrieve list of courses from mongo based on semester query
+    Course.find(
+      {semester: "9909"},
+      function(err, doc){
+        if(err){console.error(err)};
+        res.json(doc);
+      }
+
+    )
+
+    //return list of courses with only required fields via JSON
+
+    res.send(`Sucess, you requested courses for ${ req.query.semester}`)
   })
 }
