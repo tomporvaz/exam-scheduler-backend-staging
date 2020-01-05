@@ -61,3 +61,86 @@ module.exports = function (app) {
     res.send(`Sucess, you requested courses for ${ req.query.semester}`)
   })
 }
+
+
+//for loading test data
+let sampleCourses = [
+  {
+    "uniqueId": 856143841,
+    "semester": "9909",
+    "unit": "99",
+    "subject": "999",
+    "course": "990",
+    "section": "99",
+    "index": "10000",
+    "courseTitle": "BRAIN SCI FNDTS I",
+    "assignedInstructor": "Smartypants, Jone",
+    "day": "T",
+    "startTime": "08:00",
+    "endTime": "10:50",
+    "building": "ABC",
+    "room": "100",
+    "program": "Doctoral",
+    "level": "1st Year",
+    "examsoft": true,
+    "final": true,
+    "enrollment": 87,
+    "sectionNickname": "BRAIN99"
+  },
+  {
+    "uniqueId": 856143842,
+    "semester": "9909",
+    "unit": "99",
+    "subject": "999",
+    "course": "991",
+    "section": "99",
+    "index": "10001",
+    "courseTitle": "BRAIN SCI FNDTS II",
+    "assignedInstructor": "Cranium, John",
+    "day": "H",
+    "startTime": "08:00",
+    "endTime": "10:50",
+    "building": "ABC",
+    "room": "200",
+    "program": "Doctoral",
+    "level": "1st Year",
+    "examsoft": true,
+    "final": true,
+    "enrollment": 55,
+    "sectionNickname": "BRAIN102-99"
+  },
+  {
+    "uniqueId": 856143843,
+    "semester": "9909",
+    "unit": "99",
+    "subject": "999",
+    "course": "992",
+    "section": "99",
+    "index": "10002",
+    "courseTitle": "NEUROLOGY 4 BABIES",
+    "assignedInstructor": "Up, Harry",
+    "day": "W",
+    "startTime": "14:00",
+    "endTime": "16:50",
+    "building": "ABC",
+    "room": "205",
+    "program": "Doctoral",
+    "level": "2nd Year",
+    "examsoft": true,
+    "final": true,
+    "enrollment": 99,
+    "sectionNickname": "BRAIN99"
+  }
+]
+
+sampleCourses.forEach(course => {
+  saveNewCourse(course);
+});
+
+function saveNewCourse(courseData){
+  const newCourse = new Course(courseData);
+  newCourse.save(function(err, doc){
+    if(err){console.error(err)};
+    console.log(`Saved ${courseData.courseTitle}`)
+  })
+}
