@@ -7,6 +7,7 @@ const app = express();
 const bodyParser  = require('body-parser');
 var cors        = require('cors');
 const helmet = require('helmet');
+const fileupload = require('express-fileupload');
 
 
 var apiRoutes         = require('./routes/api.js');
@@ -16,6 +17,7 @@ app.use(cors({origin: '*'})); //copied from FCC project; update to use githubpag
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());  //for security
+app.use(fileupload);
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"));

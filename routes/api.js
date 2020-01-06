@@ -60,10 +60,17 @@ module.exports = function (app) {
 
     res.send(`Sucess, you requested courses for ${ req.query.semester}`)
   })
-}
+
+  //upload a set of courses to database
+  .post(function (req, res){
+    const file = req.files.courses
+    res.json(file);
+
+  })
 
 
-//for loading test data
+/* 
+  //for loading test data
 let sampleCourses = [
   {
     "uniqueId": 856143841,
@@ -143,4 +150,8 @@ function saveNewCourse(courseData){
     if(err){console.error(err)};
     console.log(`Saved ${courseData.courseTitle}`)
   })
+} */
+
 }
+
+
