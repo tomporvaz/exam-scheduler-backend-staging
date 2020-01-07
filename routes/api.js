@@ -1,6 +1,7 @@
 'use strict';
 
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const csv = require('csvtojson');
 mongoose.set('useFindAndModify', false);
 
 const CONNECTION_STRING = process.env.DB; //MongoClient.connect(CONNECTION_STRING, function(err, db) {});
@@ -63,10 +64,14 @@ module.exports = function (app) {
 
   //upload a set of courses to database
   .post(function (req, res){
-    const file = req.files.courses
-    res.json(file);
+    const file = req.files.courses;
+    csv()
+    .fromFile(file)
+    .then((jsonObj) => {
+      res.json(jsonObj)
+    });
 
-  })
+  });
 
 
 /* 
