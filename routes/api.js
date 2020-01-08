@@ -64,9 +64,19 @@ module.exports = function (app) {
 
   //upload a set of courses to database
   .post(function (req, res){
+    
+    //save uploade file to a location
     const file = req.files.courses;
+    file.mv('coursesUpload.csv', function(err) {
+      if (err) {
+           console.log("Save failed " + err);
+      }else{
+        console.log(`Success, upload saved.`)
+      }
+
+    //convert uploaded csv to json
     csv()
-    .fromFile(file)
+    .fromFile('coursesUpload.csv')
     .then((jsonObj) => {
       res.json(jsonObj)
     });
