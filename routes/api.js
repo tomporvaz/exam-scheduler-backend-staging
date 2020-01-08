@@ -73,7 +73,8 @@ module.exports = function (app) {
       }else{
         console.log(`Success, upload saved.`)
       }
-
+    });
+    
     //convert uploaded csv to json
     csv()
     .fromFile('coursesUpload.csv')
