@@ -77,16 +77,27 @@ module.exports = function (app) {
       csv()
       .fromFile('coursesUpload.csv')
       .then((jsonObj) => {
-        jsonObj.forEach(course => {
-          saveNewCourse(course);
-        })
+        saveUploadedCourses(jsonObj);
       })
       .then(() => res.send(`Completed Saves`))
       .catch(() => res.send(`Something failed`));
       
     });
     
-    
+    function saveUploadedCourses(jsonCourses){
+      return new Promise ((resolve, reject) => {
+        let arrayCourseUploads = [];
+        for(let i = 0; i < jsonCourses.length; i++){
+          const newCourse = new Course(jsonCourses[i]);
+          newCourse.save(function(err, doc){
+            if(err){arrayCourseUploads.push(`Error saving ${jsonCourses[i].courseTitle}`)}
+            else(arrayCourseUploads.push( `Saved ${jsonCourses[i].courseTitle} with id ${doc._id}`))
+          })
+        }
+        resolve(arrayCourseUploads)
+      })
+      
+    }
     
     function saveNewCourse(courseData){
       const newCourse = new Course(courseData);
