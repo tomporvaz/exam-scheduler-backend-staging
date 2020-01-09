@@ -77,15 +77,8 @@ module.exports = function (app) {
       csv()
       .fromFile('coursesUpload.csv')
       .then((jsonObj) => {
-        jsonObj.forEach(courseData => {
-          const newCourse = new Course(courseData);
-          newCourse.save(function(err, doc){
-            if(err){
-              console.error(err);
-              break;
-            }
-            else(console.log(`Saved ${courseData.courseTitle}`))
-          })
+        jsonObj.forEach(course => {
+          saveNewCourse(course);
         })
       })
       .then(() => res.send(`Completed Saves`))
