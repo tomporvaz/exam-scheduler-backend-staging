@@ -84,23 +84,25 @@ module.exports = function (app) {
       
     });
     
+
+    //TODO: Fix promise so it returns an array representing the results of the course saves.
     function saveUploadedCourses(jsonCourses){
       return new Promise ((resolve, reject) => {
         let arrayCourseUploads = [];
         for(let i = 0; i < jsonCourses.length; i++){
           const newCourse = new Course(jsonCourses[i]);
-          async () => {
-            await newCourse.save
+          newCourse.save()
             .then((doc) => {
-              if(err){arrayCourseUploads.push(`Error saving ${jsonCourses[i].courseTitle}`)}
-              else(arrayCourseUploads.push( `Saved ${jsonCourses[i].courseTitle} with id ${doc._id}`))
+              
+              (arrayCourseUploads.push( `Saved ${jsonCourses[i].courseTitle} with id ${doc._id}`))
             })
           }
-        }
+        
         resolve(arrayCourseUploads)
       })
       
     }
+    
     
     function saveNewCourse(courseData){
       const newCourse = new Course(courseData);
