@@ -46,131 +46,138 @@ module.exports = function (app) {
   app.route('/api/courses')
   
   .get(function (req, res){
-
+    
     //retrieve list of courses from mongo based on semester query
     Course.find(
       {semester: "9909"},
       function(err, doc){
         if(err){console.error(err)};
         res.json(doc);
-      }
-
-    )
-
-    //return list of courses with only required fields via JSON
-
-    res.send(`Sucess, you requested courses for ${ req.query.semester}`)
-  })
-
-  //upload a set of courses to database
-  .post(function (req, res){
+      })
+      
+      //return list of courses with only required fields via JSON
+      
+      //res.send(`Sucess, you requested courses for ${ req.query.semester}`)
+    })
     
-    //save uploade file to a location
-    const file = req.files.courses;
-    file.mv('coursesUpload.csv', function(err) {
-      if (err) {
-           console.log("Save failed " + err);
-      }else{
-        console.log(`Success, upload saved.`)
-      }
+    //upload a set of courses to database
+    .post(function (req, res){
+      
+      //save uploade file to a location
+      const file = req.files.courses;
+      file.mv('coursesUpload.csv', function(err) {
+        if (err) {
+          console.log("Save failed " + err);
+        }else{
+          console.log(`Success, upload saved.`)
+        }
+      });
+      
+      //convert uploaded csv to json
+      csv()
+      .fromFile('coursesUpload.csv')
+      .then((jsonObj) => {
+        jsonObj.forEach(courseData => {
+          const newCourse = new Course(courseData);
+          newCourse.save(function(err, doc){
+            if(err){
+              console.error(err);
+              break;
+            }
+            else(console.log(`Saved ${courseData.courseTitle}`))
+          })
+        })
+      })
+      .then(() => res.send(`Completed Saves`))
+      .catch(() => res.send(`Something failed`));
+      
     });
     
-    //convert uploaded csv to json
-    csv()
-    .fromFile('coursesUpload.csv')
-    .then((jsonObj) => {
-      jsonObj.forEach(course => {
-        saveNewCourse(course);
+    
+    
+    function saveNewCourse(courseData){
+      const newCourse = new Course(courseData);
+      newCourse.save(function(err, doc){
+        if(err){console.error(err)}
+        else(console.log(`Saved ${courseData.courseTitle}`))
       })
-    })
-    .then(() => res.send(`Completed Saves`));
-
-  });
-
- 
+    }
+    
+    
+    /* 
+    //for loading test data
+    let sampleCourses = [
+      {
+        "uniqueId": 856143841,
+        "semester": "9909",
+        "unit": "99",
+        "subject": "999",
+        "course": "990",
+        "section": "99",
+        "index": "10000",
+        "courseTitle": "BRAIN SCI FNDTS I",
+        "assignedInstructor": "Smartypants, Jone",
+        "day": "T",
+        "startTime": "08:00",
+        "endTime": "10:50",
+        "building": "ABC",
+        "room": "100",
+        "program": "Doctoral",
+        "level": "1st Year",
+        "examsoft": true,
+        "final": true,
+        "enrollment": 87,
+        "sectionNickname": "BRAIN99"
+      },
+      {
+        "uniqueId": 856143842,
+        "semester": "9909",
+        "unit": "99",
+        "subject": "999",
+        "course": "991",
+        "section": "99",
+        "index": "10001",
+        "courseTitle": "BRAIN SCI FNDTS II",
+        "assignedInstructor": "Cranium, John",
+        "day": "H",
+        "startTime": "08:00",
+        "endTime": "10:50",
+        "building": "ABC",
+        "room": "200",
+        "program": "Doctoral",
+        "level": "1st Year",
+        "examsoft": true,
+        "final": true,
+        "enrollment": 55,
+        "sectionNickname": "BRAIN102-99"
+      },
+      {
+        "uniqueId": 856143843,
+        "semester": "9909",
+        "unit": "99",
+        "subject": "999",
+        "course": "992",
+        "section": "99",
+        "index": "10002",
+        "courseTitle": "NEUROLOGY 4 BABIES",
+        "assignedInstructor": "Up, Harry",
+        "day": "W",
+        "startTime": "14:00",
+        "endTime": "16:50",
+        "building": "ABC",
+        "room": "205",
+        "program": "Doctoral",
+        "level": "2nd Year",
+        "examsoft": true,
+        "final": true,
+        "enrollment": 99,
+        "sectionNickname": "BRAIN99"
+      }
+    ]
+    
+    */
+    
+  }
   
-  function saveNewCourse(courseData){
-    const newCourse = new Course(courseData);
-    newCourse.save(function(err, doc){
-      if(err){console.error(err)};
-      console.log(`Saved ${courseData.courseTitle}`)
-    })
-  }
-
-
-/* 
-  //for loading test data
-let sampleCourses = [
-  {
-    "uniqueId": 856143841,
-    "semester": "9909",
-    "unit": "99",
-    "subject": "999",
-    "course": "990",
-    "section": "99",
-    "index": "10000",
-    "courseTitle": "BRAIN SCI FNDTS I",
-    "assignedInstructor": "Smartypants, Jone",
-    "day": "T",
-    "startTime": "08:00",
-    "endTime": "10:50",
-    "building": "ABC",
-    "room": "100",
-    "program": "Doctoral",
-    "level": "1st Year",
-    "examsoft": true,
-    "final": true,
-    "enrollment": 87,
-    "sectionNickname": "BRAIN99"
-  },
-  {
-    "uniqueId": 856143842,
-    "semester": "9909",
-    "unit": "99",
-    "subject": "999",
-    "course": "991",
-    "section": "99",
-    "index": "10001",
-    "courseTitle": "BRAIN SCI FNDTS II",
-    "assignedInstructor": "Cranium, John",
-    "day": "H",
-    "startTime": "08:00",
-    "endTime": "10:50",
-    "building": "ABC",
-    "room": "200",
-    "program": "Doctoral",
-    "level": "1st Year",
-    "examsoft": true,
-    "final": true,
-    "enrollment": 55,
-    "sectionNickname": "BRAIN102-99"
-  },
-  {
-    "uniqueId": 856143843,
-    "semester": "9909",
-    "unit": "99",
-    "subject": "999",
-    "course": "992",
-    "section": "99",
-    "index": "10002",
-    "courseTitle": "NEUROLOGY 4 BABIES",
-    "assignedInstructor": "Up, Harry",
-    "day": "W",
-    "startTime": "14:00",
-    "endTime": "16:50",
-    "building": "ABC",
-    "room": "205",
-    "program": "Doctoral",
-    "level": "2nd Year",
-    "examsoft": true,
-    "final": true,
-    "enrollment": 99,
-    "sectionNickname": "BRAIN99"
-  }
-]
-
- */
-
-}
-
-
+  
+  
