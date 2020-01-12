@@ -1,0 +1,50 @@
+[
+    {
+        "courseId": 856143841,
+        "examName": "Exam 1",
+        "examDate": "1/15/2019",
+        "examStart": "08:00",
+        "examEnd": "09:30",
+        "examSoftware": "Examsoft",
+        "examSemester": "9909",
+        "examDuration": 90,
+        "emailFaculty": false,
+        "facultyConfirmed": false,
+        "building": "ABC",
+        "room": "100"
+    },
+    {
+        "courseId": 856143841,
+        "examName": "Exam 1",
+        "examDate": "1/29/2019",
+        "examStart": "08:00",
+        "examEnd": "09:30",
+        "examSoftware": "Examsoft",
+        "examSemester": "9909",
+        "examDuration": 90,
+        "emailFaculty": false,
+        "facultyConfirmed": false,
+        "building": "ABC",
+        "room": "100",
+        "examNotes": "Jone will be absent an Jimmy Neurtron will be proctor.",
+        "supportPerson": "Amish Tom",
+        "approved": false
+    },
+    {
+        "courseId": 856143843,
+        "examName": "Exam 1",
+        "examDate": "1/16/2019",
+        "examStart": "14:00",
+        "examEnd": "15:30",
+        "examSoftware": "Examsoft",
+        "examSemester": "9909",
+        "examDuration": 90,
+        "emailFaculty": false,
+        "facultyConfirmed": false,
+        "building": "ABC",
+        "room": "205",
+        "examNotes": "",
+        "supportPerson": "Amish Tom",
+        "approved": false
+    }
+]
