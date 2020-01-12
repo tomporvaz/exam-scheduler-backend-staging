@@ -5,7 +5,7 @@ const csv = require('csvtojson');
 mongoose.set('useFindAndModify', false);
 const loadExams = require('../test/loadExams.js');
 let sampleExams = require('../test/sampleExams.json');
-const exams = require('exams.js');
+const exams = require('./exams.js');
 
 const CONNECTION_STRING = process.env.DB; //MongoClient.connect(CONNECTION_STRING, function(err, db) {});
 const ObjectId = mongoose.Schema.Types.ObjectId;

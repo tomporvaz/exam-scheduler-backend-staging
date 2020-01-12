@@ -5,7 +5,7 @@ module.exports = function loadExams (examJson) {
     
     examJson.forEach((examData) => {
         const newExam = new Exam({
-            courseId: examData.courseId,
+            courseId: mongoose.Types.ObjectId(examData.courseId),
             examName: examData.examName,
             examDate: examData.examDate,
             examStart: examData.examStart,
