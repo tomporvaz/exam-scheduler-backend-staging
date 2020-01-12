@@ -28,7 +28,7 @@ function examRoutes (app) {
     
     .post(function (req, res) {
         const newExam = new Exam({
-            courseId: req.body.uniqueId,
+            courseId: req.body.courseId,
             examName: req.body.examName,
             examDate: req.body.examDate,
             examStart: req.body.examStart,
