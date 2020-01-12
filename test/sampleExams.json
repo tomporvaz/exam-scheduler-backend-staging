@@ -1,6 +1,6 @@
 [
     {
-        "courseId": 5e17af7aee1af90fe0524bb6,
+        "courseId": "5e17af7aee1af90fe0524bb6",
         "examName": "Exam 1",
         "examDate": "1/15/2019",
         "examStart": "08:00",
@@ -14,7 +14,7 @@
         "room": "100"
     },
     {
-        "courseId": 5e17af7aee1af90fe0524bb6,
+        "courseId": "5e17af7aee1af90fe0524bb6",
         "examName": "Exam 1",
         "examDate": "1/29/2019",
         "examStart": "08:00",
@@ -31,7 +31,7 @@
         "approved": false
     },
     {
-        "courseId": 5e17af7aee1af90fe0524bb8,
+        "courseId": "5e17af7aee1af90fe0524bb8",
         "examName": "Exam 1",
         "examDate": "1/16/2019",
         "examStart": "14:00",

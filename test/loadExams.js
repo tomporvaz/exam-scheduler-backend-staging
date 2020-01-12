@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const exams = require('../routes/exams.js'); 
 const Exam = exams.Exam; 
 
