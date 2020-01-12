@@ -20,13 +20,13 @@ module.exports = function (app) {
     console.log("DB sucess using mongoose!")
   });
 
-  loadExams('../test/sampleExams.json')
+  loadExams(sampleExams);
   
 
   /*
   EXAM ROUTES
   */
-  exams.examRoutes();
+  exams.examRoutes(app);
 
 
   /*

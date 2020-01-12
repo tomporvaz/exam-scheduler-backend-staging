@@ -1,3 +1,6 @@
+const exams = require('../routes/exams.js'); 
+const Exam = exams.Exam; 
+
 module.exports = function loadExams (examJson) {
     
     examJson.forEach((examData) => {
