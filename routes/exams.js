@@ -24,7 +24,7 @@ const examSchema = new Schema({
 
 const Exam = mongoose.model('Exam', examSchema);
 function examRoutes (app) {
-    app.route('/api/exam')
+    app.route('/api/exams')
     
     .post(function (req, res) {
         const newExam = new Exam({
