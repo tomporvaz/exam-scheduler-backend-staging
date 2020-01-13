@@ -11,7 +11,10 @@
         "emailFaculty": false,
         "facultyConfirmed": false,
         "building": "ABC",
-        "room": "100"
+        "room": "100",
+        "examNotes": "",
+        "supportPerson": "Amish Tom",
+        "approved": false
     },
     {
         "courseId": "5e17af7aee1af90fe0524bb6",

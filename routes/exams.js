@@ -62,7 +62,26 @@ function examRoutes (app) {
         function(err, doc){
           if(err){console.error(err)}
           else{
-            res.json(doc);   
+            //flatten course data forEach exam into itself and update _id to examId
+            let arrFlatExams = doc.map((exam) => {
+              let newExam = {...exam._doc};
+              
+              //change exam._id to examId
+              newExam.examId = newExam._id;
+              delete newExam._id;
+
+              //spread newExam and courseId to flatten course
+              newExam = {...newExam, ...newExam.courseId._doc}
+
+              //change courseId._id to courseId
+              newExam.courseId = newExam.courseId._id;
+              
+              delete newExam._id;
+              delete newExam.__v
+
+              return newExam;
+            })
+            res.json(arrFlatExams);   
           }
         })
       })
