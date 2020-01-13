@@ -10,7 +10,7 @@ const examSchema = new Schema({
     examDate: {type: String},
     examStart: {type: String},
     examEnd: {type: String},
-    exanSoftware: {type: String},
+    examSoftware: {type: String},
     examSemester: {type: String, required: true},
     examDuration: {type: Number},
     emailFaculty: {type: Boolean},
@@ -47,7 +47,11 @@ function examRoutes (app) {
         
         newExam.save(function (err, doc){
             if(err){console.error(err)}
-            else{res.send(`Sucess, exam saved!`)}
+            else{
+                let savedDoc = {...doc._doc};
+                savedDoc.examId = savedDoc._id;
+                delete savedDoc.id;
+                res.json(savedDoc)}
         })
     })
     

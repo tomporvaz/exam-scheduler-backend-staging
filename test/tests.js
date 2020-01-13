@@ -44,28 +44,28 @@ describe('/api/exams', function() {
       chai.request(server)
       .post('/api/exams')
       .send({
-        uniqueId: 000001,  //test data needs to include course with this uniqueId
+        courseId: "5e17af7aee1af90fe0524bb6",  //test data needs to include course with this uniqueId
         examName: 'Exam 1',
         examDate: '9/9/1999',
-        examStart: 0800,
-        examEnd: 0930,
+        examStart: "0800",
+        examEnd: "0930",
         examSoftware: 'examsoft',
-        examSemester: 9909,
-        examDuration: 90,
+        examSemester: "9909",
+        examDuration: "90",
         emailFaculty: false,
         facultyConfirmed: false,
         building: 'cns',
         room: '101',
         examNotes: "",
         supportPerson: "",
-        approved: null,
+        approved: null
       })
       .end(function(err, res) {
         if(err){done(err)}
         else{
           assert.equal(res.status, 200);
-          assert.equal(res.body.semester, 9909);
-          assert.equal(res.body.uniqueId, 000001);
+
+          assert.equal(res.body.courseId, "5e17af7aee1af90fe0524bb6");
           assert.equal(res.body.examName, 'Exam 1');
           assert.equal(res.body.examDate, '9/9/1999');
           assert.equal(res.body.examStart, 0800);
