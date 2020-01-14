@@ -44,7 +44,7 @@ describe('/api/exams', function() {
       chai.request(server)
       .post('/api/exams')
       .send({
-        courseId: "5e17af7aee1af90fe0524bb6",  //test data needs to include course with this uniqueId
+        courseId: "5e1d05233193f6172406f0e8",  //test data needs to include course with this uniqueId
         examName: 'Exam 1',
         examDate: '9/9/1999',
         examStart: "0800",
@@ -65,7 +65,7 @@ describe('/api/exams', function() {
         else{
           assert.equal(res.status, 200);
 
-          assert.equal(res.body.courseId, "5e17af7aee1af90fe0524bb6");
+          assert.equal(res.body.courseId, "5e1d05233193f6172406f0e8");
           assert.equal(res.body.examName, 'Exam 1');
           assert.equal(res.body.examDate, '9/9/1999');
           assert.equal(res.body.examStart, 0800);
