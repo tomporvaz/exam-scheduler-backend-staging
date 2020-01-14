@@ -1,4 +1,4 @@
-uniqueId,semester,unit,subject,course,section,index,courseTitle,assignedInstructor,day,startTime,endTime,building,room,program,level,examsoft,final,enrollment,sectionNickname
+uniqueId,semester,unit,subject,course,section,index,courseTitle,assignedInstructor,day,courseStartTime,courseEndTime,building,room,program,level,examsoft,final,enrollment,sectionNickname
 856143841,9909,99,999,990,99,10000,BRAIN SCI FNDTS I,"Smartypants, Jone",T,08:00,10:50,ABC,100,Doctoral,1st Year,true,true,87,BRAIN99
 856143842,9909,99,999,991,99,10001,BRAIN SCI FNDTS II,"Cranium, John",H,08:00,10:50,ABC,200,Doctoral,1st Year,true,true,55,BRAIN102-99
 856143843,9909,99,999,992,99,10002,NEUROLOGY 4 BABIES,"Up, Harry",W,14:00,16:50,ABC,205,Doctoral,2nd Year,true,true,99,BRAIN99

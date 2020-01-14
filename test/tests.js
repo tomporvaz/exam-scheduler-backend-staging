@@ -18,7 +18,7 @@ describe('/api/exams', function() {
           assert.equal(res.status, 200);
           assert.isArray(res.body);
           assert.property(res.body[0], 'examId');
-          assert.property(res.body[0], 'uniqueId');
+          assert.property(res.body[0], 'courseId');
           assert.property(res.body[0], 'examName');
           assert.property(res.body[0], 'examDate');
           assert.property(res.body[0], 'examStart');
@@ -148,8 +148,8 @@ describe('/api/courses?semester=####', function (){
           assert.property(res.body[0], 'courseTitle');
           assert.property(res.body[0], 'assignedInstructor');
           assert.property(res.body[0], 'day');
-          assert.property(res.body[0], 'startTime');
-          assert.property(res.body[0], 'endTime');
+          assert.property(res.body[0], 'courseStartTime');
+          assert.property(res.body[0], 'courseEndTime');
           assert.property(res.body[0], 'building');
           assert.property(res.body[0], 'room');
           assert.property(res.body[0], 'program');
@@ -210,8 +210,8 @@ describe('api/courses?uniqueId=########', function(){
           assert.property(res.body, 'courseTitle');
           assert.property(res.body, 'assignedInstructor');
           assert.property(res.body, 'day');
-          assert.property(res.body, 'startTime');
-          assert.property(res.body, 'endTime');
+          assert.property(res.body, 'courseStartTime');
+          assert.property(res.body, 'courseEndTime');
           assert.property(res.body, 'building');
           assert.property(res.body, 'room');
           assert.property(res.body, 'program');
