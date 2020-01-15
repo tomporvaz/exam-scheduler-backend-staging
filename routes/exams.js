@@ -69,24 +69,54 @@ function examRoutes (app) {
               //change exam._id to examId
               newExam.examId = newExam._id;
               delete newExam._id;
-
+              
               //spread newExam and courseId to flatten course
               newExam = {...newExam, ...newExam.courseId._doc}
-
+              
               //change courseId._id to courseId
               newExam.courseId = newExam.courseId._id;
               
               delete newExam._id;
               delete newExam.__v
-
+              
               return newExam;
             })
             res.json(arrFlatExams);   
           }
         })
       })
-    }
-    exports.examSchema = examSchema;
-    exports.Exam = Exam;
-    exports.examRoutes = examRoutes;
-    
+      .put(function(req, res){
+        
+        let updateObj = {};
+        
+        
+        if(req.body.courseId){updateObj.courseId = req.body.courseId};
+        if(req.body.examDate){updateObj.examDate = req.body.examDate};
+        if(req.body.examName){updateObj.examName = req.body.examName};
+        if(req.body.examStart){updateObj.examStart = req.body.examStart};
+        if(req.body.examEnd){updateObj.examEnd = req.body.examEnd};
+        if(req.body.examSoftware){updateObj.examSoftware = req.body.examSoftware};
+        if(req.body.examSemester){updateObj.examSemester = req.body.examSemester};
+        if(req.body.examDuration){updateObj.examDuration = req.body.examDuration};
+        if(req.body.emailFaculty){updateObj.emailFaculty = req.body.emailFaculty};
+        if(req.body.facultyConfirmed){updateObj.facultyConfirmed = req.body.facultyConfirmed};
+        if(req.body.building){updateObj.building = req.body.building};
+        if(req.body.room){updateObj.room = req.body.room};
+        if(req.body.examNotes){updateObj.examNotes = req.body.examNotes};
+        if(req.body.supportPerson){updateObj.supportPerson = req.body.supportPerson};
+        if(req.body.approved){updateObj.approved = req.body.approved};
+        
+        Exam.findByIdAndUpdate(req.query.examId, updateObj,{new: true}, 
+          function(err, doc){
+            if(err){console.error(err)}
+            else{
+              res.json(doc);
+            }
+          } )
+          
+        })
+      }
+      exports.examSchema = examSchema;
+      exports.Exam = Exam;
+      exports.examRoutes = examRoutes;
+      
