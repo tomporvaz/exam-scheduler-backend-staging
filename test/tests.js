@@ -98,7 +98,7 @@ describe('/api/exams', function() {
         examStart: 0930,
         examEnd: 1050,
         facultyConfirmed: true,
-        builidng: 'law',
+        building: 'law',
         room: '204',
         examNotes: "Test note for testing purposes.",
         supportPerson: "Grittwald Grittington"
@@ -114,7 +114,7 @@ describe('/api/exams', function() {
           assert.equal(res.body.facultyConfirmed, true);
           assert.equal(res.body.building, 'law');
           assert.equal(res.body.room, '204');
-          assert.equal(res.body.examsNotes, "Test note for testing purposes.");
+          assert.equal(res.body.examNotes, "Test note for testing purposes.");
           assert.equal(res.body.supportPerson, "Grittwald Grittington");
           assert.equal(res.body.examId, testExamId);
           

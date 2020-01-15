@@ -110,6 +110,11 @@ function examRoutes (app) {
           function(err, doc){
             if(err){console.error(err)}
             else{
+              //convert _id to examId
+              doc._doc.examId = doc._doc._id;
+              delete doc._doc._id;
+
+              //send new doc
               res.json(doc);
             }
           } )
