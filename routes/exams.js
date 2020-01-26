@@ -7,9 +7,9 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const examSchema = new Schema({
   courseId: {type: ObjectId, required: true, ref: 'Course'},
   examName: {type: String, required: true},
-  examDate: {type: String},
-  examStart: {type: String},
-  examEnd: {type: String},
+  examDate: {type: Date},
+  examStart: {type: Date},
+  examEnd: {type: Date},
   examSoftware: {type: String},
   examSemester: {type: String, required: true},
   examDuration: {type: Number},
