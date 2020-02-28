@@ -103,19 +103,6 @@ module.exports = function (app) {
       
       convertAndUploadCSV();
       
-      
-      
-      function saveNewCourse(courseData){
-        const newCourse = new Course(courseData);
-        newCourse.save(function(err, doc){
-          if(err){console.error(err)}
-          else(console.log(`Saved ${courseData.courseTitle}`))
-        })
-      }
-      
-      
-      
-      
     })
   }
   
