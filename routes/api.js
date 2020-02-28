@@ -83,13 +83,7 @@ module.exports = function (app) {
       
       //save uploade file to a location
       const file = req.files.courses;
-      file.mv('coursesUpload.csv', function(err) {
-        if (err) {
-          console.log("Save failed " + err);
-        }else{
-          console.log(`Success, upload saved.`)
-        }
-      });
+      file.mv('coursesUpload.csv');
       
       //convert uploaded csv to json
       async function convertAndUploadCSV() {
