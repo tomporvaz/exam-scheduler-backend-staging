@@ -92,31 +92,19 @@ module.exports = function (app) {
       });
       
       //convert uploaded csv to json
-      csv()
-      .fromFile('coursesUpload.csv')
-      .then((jsonObj) => {
-        saveUploadedCourses(jsonObj);
-      })
-      .then(() => res.send(`Completed Saves`))
-      .catch(() => res.send(`Something failed`));
-      
-    });
-    
-
-    //TODO: Fix promise so it returns an array representing the results of the course saves.
-    async function saveUploadedCourses(jsonCourses){
-      
+      async function convertAndUploadCSV() {
+        let jsonCourses = csv().fromFile('coursesUpload.csv');
         let arrayCourseUploads = [];
         for(let i = 0; i < jsonCourses.length; i++){
           const newCourse = new Course(jsonCourses[i]);
-           let savedCourse = await newCourse.save()
-           arrayCourseUploads.push( `Saved ${jsonCourses[i].courseTitle} with id ${savedCourse._id}`)
+          let savedCourse = await newCourse.save()
+          arrayCourseUploads.push( `Saved ${jsonCourses[i].courseTitle} with id ${savedCourse._id}`)
           }
         
-        return(arrayCourseUploads)
-    
-      
-    }
+          res.send(`Completed Saves: ${arrayCourseUploads}`)
+          //TODO: Write try catch
+      }
+
     
     
     function saveNewCourse(courseData){
