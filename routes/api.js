@@ -78,7 +78,7 @@ module.exports = function (app) {
       //res.send(`Sucess, you requested courses for ${ req.query.semester}`)
     })
     
-    //upload a set of courses to database
+    //upload a CSV set of courses to database
     .post(function (req, res){
       
       //save uploade file to a location
@@ -104,12 +104,12 @@ module.exports = function (app) {
     
 
     //TODO: Fix promise so it returns an array representing the results of the course saves.
-    function saveUploadedCourses(jsonCourses){
+    async function saveUploadedCourses(jsonCourses){
       return new Promise ((resolve, reject) => {
         let arrayCourseUploads = [];
         for(let i = 0; i < jsonCourses.length; i++){
           const newCourse = new Course(jsonCourses[i]);
-          newCourse.save()
+          await newCourse.save()
             .then((doc) => {
               
               (arrayCourseUploads.push( `Saved ${jsonCourses[i].courseTitle} with id ${doc._id}`))
