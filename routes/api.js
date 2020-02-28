@@ -19,21 +19,21 @@ module.exports = function (app) {
   db.once('open', function (){
     console.log("DB sucess using mongoose!")
   });
-
+  
   //LOAD EXAMS FOR TESTING
   //loadExams(sampleExams);
   
-
+  
   /*
   EXAM ROUTES
   */
   exams.examRoutes(app);
-
-
+  
+  
   /*
   COURSE ROUTES
   */
-
+  
   //course schema and model
   const courseSchema = new Schema({
     uniqueId: {type: Number, required: true},
@@ -93,31 +93,36 @@ module.exports = function (app) {
       
       //convert uploaded csv to json
       async function convertAndUploadCSV() {
-        let jsonCourses = csv().fromFile('coursesUpload.csv');
+        let jsonCourses = await csv().fromFile('coursesUpload.csv');
+        console.log(jsonCourses);
+        
         let arrayCourseUploads = [];
         for(let i = 0; i < jsonCourses.length; i++){
           const newCourse = new Course(jsonCourses[i]);
           let savedCourse = await newCourse.save()
           arrayCourseUploads.push( `Saved ${jsonCourses[i].courseTitle} with id ${savedCourse._id}`)
-          }
+        }
         
-          res.send(`Completed Saves: ${arrayCourseUploads}`)
-          //TODO: Write try catch
+        res.send(`Completed Saves: ${arrayCourseUploads}`)
+        //TODO: Write try catch
       }
-
-    
-    
-    function saveNewCourse(courseData){
-      const newCourse = new Course(courseData);
-      newCourse.save(function(err, doc){
-        if(err){console.error(err)}
-        else(console.log(`Saved ${courseData.courseTitle}`))
-      })
-    }
-    
-    
-    
-    
+      
+      convertAndUploadCSV();
+      
+      
+      
+      function saveNewCourse(courseData){
+        const newCourse = new Course(courseData);
+        newCourse.save(function(err, doc){
+          if(err){console.error(err)}
+          else(console.log(`Saved ${courseData.courseTitle}`))
+        })
+      }
+      
+      
+      
+      
+    })
   }
   
   
