@@ -1,4 +1,9 @@
 const mongoose = require('mongoose');
+const exams = require('./exams.js');
+
+//Exam model from exams.js
+const Exam = exams.Exam;
+
 
 function filters (app) {
     app.route('/api/filters')
@@ -9,7 +14,7 @@ function filters (app) {
       })
       
       .get(function (req, res) {
-        Exam.find({examSemester: req.query.semester})
+        let findExamList = Exam.find({examSemester: req.query.semester})
         .populate('courseId')
         .exec(
           function(err, doc){
@@ -34,9 +39,14 @@ function filters (app) {
                 
                 return newExam;
               })
-              res.json(arrFlatExams);   
+              return(arrFlatExams);   
             }
           })
+
+        async function findFilters(filterGroups){
+          //let result = await findExamList();
+          console.log(await findExamList())
+        }  
         })
         
         .put(function(req, res){
