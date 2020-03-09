@@ -6,6 +6,7 @@ mongoose.set('useFindAndModify', false);
 const loadExams = require('../test/loadExams.js');
 let sampleExams = require('../test/sampleExams.json');
 const exams = require('./exams.js');
+const filters = require('./filters.js');
 
 const CONNECTION_STRING = process.env.DB; //MongoClient.connect(CONNECTION_STRING, function(err, db) {});
 const ObjectId = mongoose.Schema.Types.ObjectId;
@@ -29,6 +30,10 @@ module.exports = function (app) {
   */
   exams.examRoutes(app);
   
+  /* 
+  FILTER ROUTES
+  */
+  filters.filters(app);
   
   /*
   COURSE ROUTES
