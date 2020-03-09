@@ -48,12 +48,12 @@ function filters (app) {
               //loop though exams to pull out a set of filters on each filterGroup
               let filters = {};
               filterGroups.forEach(filterGroup => {
-                let tempFilterArr = arrFlatExams.map(exam => {exam[filterGroup]});
-                filters[filterGroup] = tempFilterArr;
+                let tempFilterArr = arrFlatExams.map(exam => exam[filterGroup]);
+                filters[filterGroup] = new Set(tempFilterArr);
               })
               console.log(`Found filters: `)
               console.log(filters);
-              return(arrFlatExams);   
+              res.json(filters);
             }
           })
         })
