@@ -42,14 +42,16 @@ function filters (app) {
                 
                 return newExam;
               })
-              console.log(`Found flat array of exams:`);
-              console.log(arrFlatExams);
+              //console.log(`Found flat array of exams:`);
+              //console.log(arrFlatExams);
 
               //loop though exams to pull out a set of filters on each filterGroup
               let filters = {};
               filterGroups.forEach(filterGroup => {
                 let tempFilterArr = arrFlatExams.map(exam => exam[filterGroup]);
-                filters[filterGroup] = new Set(tempFilterArr);
+                let tempFilterSet = new Set(tempFilterArr);
+                tempFilterArr = [...tempFilterSet];
+                filters[filterGroup] = tempFilterArr;
               })
               console.log(`Found filters: `)
               console.log(filters);
