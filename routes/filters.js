@@ -4,6 +4,9 @@ const exams = require('./exams.js');
 //Exam model from exams.js
 const Exam = exams.Exam;
 
+//list of filterGroups
+const filterGroups = ['level', 'assignedInstructor', 'courseTitle', 'examSoftware']
+
 
 function filters (app) {
     app.route('/api/filters')
@@ -39,14 +42,20 @@ function filters (app) {
                 
                 return newExam;
               })
+              console.log(`Found flat array of exams:`);
+              console.log(arrFlatExams);
+
+              //loop though exams to pull out a set of filters on each filterGroup
+              let filters = {};
+              filterGroups.forEach(filterGroup => {
+                let tempFilterArr = arrFlatExams.map(exam => {exam[filterGroup]});
+                filters[filterGroup] = tempFilterArr;
+              })
+              console.log(`Found filters: `)
+              console.log(filters);
               return(arrFlatExams);   
             }
           })
-
-        async function findFilters(filterGroups){
-          //let result = await findExamList();
-          console.log(await findExamList())
-        }  
         })
         
         .put(function(req, res){
