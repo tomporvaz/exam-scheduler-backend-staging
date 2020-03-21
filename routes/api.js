@@ -53,14 +53,14 @@ module.exports = function (app) {
     day: {type: String, required: true},
     courseStartTime: {type: String, required: true},
     courseEndTime: {type: String, required: true},
-    building: {type: String, required: true},
-    room: {type: String, required: true},
-    program: {type: String, required: true},
-    level: {type: String, required: true},
-    examsoft: Boolean,
-    final: Boolean,
+    building: {type: String, required: false},
+    room: {type: String, required: false},
+    program: {type: String, required: false},
+    level: {type: String, required: false},
+    examsoft: {type: String, required: false},
+    final: {type: String, required: false},
     enrollment: Number,
-    sectionNickname: {type: String, required: true}
+    sectionNickname: {type: String, required: false}
   })
   
   const Course = mongoose.model('Course', courseSchema);
