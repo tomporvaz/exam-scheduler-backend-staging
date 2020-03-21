@@ -1,10 +1,10 @@
 [
     {
-        "courseId": "5e1d05233193f6172406f0e8",
+        "courseId": "5e7678f440b97600780cf6d9",
         "examName": "Exam 1",
-        "examDate": "1/15/2019",
-        "examStart": "08:00",
-        "examEnd": "09:30",
+        "examDate": "1/15/2020",
+        "examStart": "1/15/2020 13:00",
+        "examEnd": "1/15/2020 14:30",
         "examSoftware": "Examsoft",
         "examSemester": "9909",
         "examDuration": 90,
@@ -17,11 +17,11 @@
         "approved": false
     },
     {
-        "courseId": "5e1d05243193f6172406f0ea",
+        "courseId": "5e7678f440b97600780cf6d9",
         "examName": "Exam 1",
-        "examDate": "1/29/2019",
-        "examStart": "08:00",
-        "examEnd": "09:30",
+        "examDate": "1/29/2020",
+        "examStart": "1/29/2020 13:00",
+        "examEnd": "1/29/2020 14:30",
         "examSoftware": "Examsoft",
         "examSemester": "9909",
         "examDuration": 90,
@@ -34,11 +34,11 @@
         "approved": false
     },
     {
-        "courseId": "5e1d05243193f6172406f0e9",
+        "courseId": "5e7678f540b97600780cf6db",
         "examName": "Exam 1",
-        "examDate": "1/16/2019",
-        "examStart": "14:00",
-        "examEnd": "15:30",
+        "examDate": "1/16/2020",
+        "examStart": "1/16/2020 19:00",
+        "examEnd": "1/16/2020 20:30",
         "examSoftware": "Examsoft",
         "examSemester": "9909",
         "examDuration": 90,
