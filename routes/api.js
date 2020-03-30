@@ -72,7 +72,7 @@ module.exports = function (app) {
     
     //retrieve list of courses from mongo based on semester query
     Course.find(
-      {semester: "9909"}, //TODO: replace 9909 with req.query.semester
+      {semester: req.query.semester}, //TODO: replace 9909 with req.query.semester
       function(err, doc){
         if(err){console.error(err)};
         res.json(doc);
