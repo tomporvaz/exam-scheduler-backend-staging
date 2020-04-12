@@ -7,7 +7,6 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const examSchema = new Schema({
   courseId: {type: ObjectId, required: true, ref: 'Course'},
   examName: {type: String, required: true},
-  examDate: {type: Date},
   examStart: {type: Date},
   examEnd: {type: Date},
   examSoftware: {type: String},
@@ -30,12 +29,10 @@ function examRoutes (app) {
     const newExam = new Exam({
       courseId: req.body.courseId,
       examName: req.body.examName,
-      examDate: req.body.examDate,
       examStart: req.body.examStart,
       examEnd: req.body.examEnd,
       examSoftware: req.body.examSoftware,
       examSemester: req.body.examSemester,
-      examDuration: req.body.examDuration,
       emailFaculty: req.body.emailFaculty,
       facultyConfirmed: req.body.facultyConfirmed,
       building: req.body.building,
@@ -91,13 +88,11 @@ function examRoutes (app) {
         
         
         if(req.body.courseId){updateObj.courseId = req.body.courseId};
-        if(req.body.examDate){updateObj.examDate = req.body.examDate};
         if(req.body.examName){updateObj.examName = req.body.examName};
         if(req.body.examStart){updateObj.examStart = req.body.examStart};
         if(req.body.examEnd){updateObj.examEnd = req.body.examEnd};
         if(req.body.examSoftware){updateObj.examSoftware = req.body.examSoftware};
         if(req.body.examSemester){updateObj.examSemester = req.body.examSemester};
-        if(req.body.examDuration){updateObj.examDuration = req.body.examDuration};
         if(req.body.emailFaculty){updateObj.emailFaculty = req.body.emailFaculty};
         if(req.body.facultyConfirmed){updateObj.facultyConfirmed = req.body.facultyConfirmed};
         if(req.body.building){updateObj.building = req.body.building};
