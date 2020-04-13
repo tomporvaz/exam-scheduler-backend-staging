@@ -14,8 +14,8 @@ const examSchema = new Schema({
   examDuration: {type: Number},
   emailFaculty: {type: Boolean},
   facultyConfirmed: {type: Boolean},
-  building: {type: String},
-  room: {type: String},
+  examBuilding: {type: String},
+  examRoom: {type: String},
   examNotes: {type: String},
   supportPerson: {type: String},
   approved: {type: Boolean}
@@ -35,8 +35,8 @@ function examRoutes (app) {
       examSemester: req.body.examSemester,
       emailFaculty: req.body.emailFaculty,
       facultyConfirmed: req.body.facultyConfirmed,
-      building: req.body.building,
-      room: req.body.room,
+      examBuildin: req.body.examBuilding,
+      examRoom: req.body.examRoom,
       examNotes: req.body.examNotes,
       supportPerson: req.body.supportPerson,
       approved: req.body.approved
@@ -95,8 +95,8 @@ function examRoutes (app) {
         if(req.body.examSemester){updateObj.examSemester = req.body.examSemester};
         if(req.body.emailFaculty){updateObj.emailFaculty = req.body.emailFaculty};
         if(req.body.facultyConfirmed){updateObj.facultyConfirmed = req.body.facultyConfirmed};
-        if(req.body.building){updateObj.building = req.body.building};
-        if(req.body.room){updateObj.room = req.body.room};
+        if(req.body.examBuilding){updateObj.examBuilding = req.body.examBuilding};
+        if(req.body.examRoom){updateObj.examRoom = req.body.examRoom};
         if(req.body.examNotes){updateObj.examNotes = req.body.examNotes};
         if(req.body.supportPerson){updateObj.supportPerson = req.body.supportPerson};
         if(req.body.approved){updateObj.approved = req.body.approved};
