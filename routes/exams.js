@@ -45,10 +45,13 @@ function examRoutes (app) {
     newExam.save(function (err, doc){
       if(err){console.error(err)}
       else{
-        let savedDoc = {...doc._doc};
-        savedDoc.examId = savedDoc._id;
-        delete savedDoc._id;
-        res.json(savedDoc)}
+        doc.populate('courseId').execPopulate(
+          (err, popDoc) => {
+            console.log(popDoc);
+            res.json(arrFlattenExam(popDoc));
+          }
+        )
+        }
       })
     })
     
@@ -59,26 +62,8 @@ function examRoutes (app) {
         function(err, doc){
           if(err){console.error(err)}
           else{
-            //flatten course data forEach exam into itself and update _id to examId
-            let arrFlatExams = doc.map((exam) => {
-              let newExam = {...exam._doc};
-              
-              //change exam._id to examId
-              newExam.examId = newExam._id;
-              delete newExam._id;
-              
-              //spread newExam and courseId to flatten course
-              newExam = {...newExam, ...newExam.courseId._doc}
-              
-              //change courseId._id to courseId
-              newExam.courseId = newExam.courseId._id;
-              
-              delete newExam._id;
-              delete newExam.__v
-              
-              return newExam;
-            })
-            res.json(arrFlatExams);   
+            
+            res.json(doc.map(exam => arrFlattenExam(exam)));   
           }
         })
       })
@@ -108,7 +93,7 @@ function examRoutes (app) {
               //convert _id to examId
               doc._doc.examId = doc._doc._id;
               delete doc._doc._id;
-
+              
               //send new doc
               res.json(doc);
             }
@@ -116,6 +101,29 @@ function examRoutes (app) {
           
         })
       }
+      
+      //flatten course data forEach exam into itself and update _id to examId
+      function arrFlattenExam (exam) {
+        
+        let newExam = {...exam._doc};
+        
+        //change exam._id to examId
+        newExam.examId = newExam._id;
+        delete newExam._id;
+        
+        //spread newExam and courseId to flatten course
+        newExam = {...newExam, ...newExam.courseId._doc}
+        
+        //change courseId._id to courseId
+        newExam.courseId = newExam.courseId._id;
+        
+        delete newExam._id;
+        delete newExam.__v
+        
+        return newExam;
+        
+      }
+      
       exports.examSchema = examSchema;
       exports.Exam = Exam;
       exports.examRoutes = examRoutes;
