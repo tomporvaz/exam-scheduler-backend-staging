@@ -58,6 +58,7 @@ function examRoutes (app) {
     .get(function (req, res) {
       Exam.find({examSemester: req.query.semester})
       .populate('courseId')
+      .sort({'examStart': 'ascending'})
       .exec(
         function(err, doc){
           if(err){console.error(err)}
