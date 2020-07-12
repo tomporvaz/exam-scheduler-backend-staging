@@ -50,7 +50,7 @@ function examRoutes (app) {
             console.log(popDoc);
             res.json(arrFlattenExam(popDoc));
           }
-        )
+          )
         }
       })
     })
@@ -79,53 +79,48 @@ function examRoutes (app) {
         if(req.body.examEnd){updateObj.examEnd = req.body.examEnd};
         if(req.body.examSoftware){updateObj.examSoftware = req.body.examSoftware};
         if(req.body.examSemester){updateObj.examSemester = req.body.examSemester};
-        if(req.body.emailFaculty){updateObj.emailFaculty = req.body.emailFaculty};
-        if(req.body.facultyConfirmed){updateObj.facultyConfirmed = req.body.facultyConfirmed};
+        updateObj.emailFaculty = req.body.emailFaculty; //Boolean value will always be present
+        updateObj.facultyConfirmed = req.body.facultyConfirmed; //Boolean value will always be present
         if(req.body.examBuilding){updateObj.examBuilding = req.body.examBuilding};
         if(req.body.examRoom){updateObj.examRoom = req.body.examRoom};
         if(req.body.examNotes){updateObj.examNotes = req.body.examNotes};
         if(req.body.supportPerson){updateObj.supportPerson = req.body.supportPerson};
-        if(req.body.approved){updateObj.approved = req.body.approved};
+        updateObj.approved = req.body.approved;//Boolean value will always be present
         
-        Exam.findByIdAndUpdate(req.query.examId, updateObj,{new: true}, 
-          function(err, doc){
-            if(err){console.error(err)}
-            else{
-              //convert _id to examId
-              doc._doc.examId = doc._doc._id;
-              delete doc._doc._id;
-              
-              //send new doc
-              res.json(doc);
-            }
-          } )
-          
+        Exam.findByIdAndUpdate(req.query.examId, updateObj,{new: true})
+        .populate('courseId')
+        .exec( function(err, doc){
+          if(err){console.error(err)}
+          else{
+            res.json(arrFlattenExam(doc)); //send new doc
+          }
         })
-      }
+      })
+    }
+    
+    //flatten course data forEach exam into itself and update _id to examId
+    function arrFlattenExam (exam) {
       
-      //flatten course data forEach exam into itself and update _id to examId
-      function arrFlattenExam (exam) {
-        
-        let newExam = {...exam._doc};
-        
-        //change exam._id to examId
-        newExam.examId = newExam._id;
-        delete newExam._id;
-        
-        //spread newExam and courseId to flatten course
-        newExam = {...newExam, ...newExam.courseId._doc}
-        
-        //change courseId._id to courseId
-        newExam.courseId = newExam.courseId._id;
-        
-        delete newExam._id;
-        delete newExam.__v
-        
-        return newExam;
-        
-      }
+      let newExam = {...exam._doc};
       
-      exports.examSchema = examSchema;
-      exports.Exam = Exam;
-      exports.examRoutes = examRoutes;
+      //change exam._id to examId
+      newExam.examId = newExam._id;
+      delete newExam._id;
       
+      //spread newExam and courseId to flatten course
+      newExam = {...newExam, ...newExam.courseId._doc}
+      
+      //change courseId._id to courseId
+      newExam.courseId = newExam.courseId._id;
+      
+      delete newExam._id;
+      delete newExam.__v
+      
+      return newExam;
+      
+    }
+    
+    exports.examSchema = examSchema;
+    exports.Exam = Exam;
+    exports.examRoutes = examRoutes;
+    
