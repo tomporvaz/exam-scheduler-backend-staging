@@ -8,6 +8,8 @@ const bodyParser  = require('body-parser');
 var cors        = require('cors');
 const helmet = require('helmet');
 const fileupload = require('express-fileupload');
+const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
 
 
 var apiRoutes         = require('./routes/api.js');
@@ -18,6 +20,25 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());  //for security
 app.use(fileupload());
+
+//Auth
+var jwtCheck = jwt({
+  secret: jwks.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: 'https://porkpotato.auth0.com/.well-known/jwks.json'
+  }),
+  audience: 'https://exam-scheduler.glitch.me/',
+  issuer: 'https://porkpotato.auth0.com/',
+  algorithms: ['RS256']
+});
+
+app.use(jwtCheck);
+
+app.get('/authorized', function (req, res) {
+  res.send('Secured Resource');
+});
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"));
@@ -33,8 +54,8 @@ apiRoutes(app);
 //404 Not Found Middleware
 app.use(function(req, res, next) {
   res.status(404)
-    .type('text')
-    .send('Not Found');
+  .type('text')
+  .send('Not Found');
 });
 
 // listen for requests :)
