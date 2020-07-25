@@ -23,21 +23,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());  //for security
 app.use(fileupload());
 
-//Auth0 code for authorization
-var jwtCheck = jwt({
-  secret: jwks.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: 'https://porkpotato.auth0.com/.well-known/jwks.json'
-  }),
-  audience: 'https://exam-scheduler.glitch.me/',
-  issuer: 'https://porkpotato.auth0.com/',
-  algorithms: ['RS256']
-});
-
-//app.use(jwtCheck);
-
 app.get('/authorized', jwtCheck, function (req, res) {
   res.send('Secured Resource');
 });

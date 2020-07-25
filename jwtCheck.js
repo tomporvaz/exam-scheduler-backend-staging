@@ -5,7 +5,7 @@ const jwks = require('jwks-rsa');
 
 
 //Auth0 code for authorization
-module.exports = jwtCheck = jwt({
+let jwtCheck = jwt({
     secret: jwks.expressJwtSecret({
       cache: true,
       rateLimit: true,
@@ -17,3 +17,4 @@ module.exports = jwtCheck = jwt({
     algorithms: ['RS256']
   });
   
+  module.exports = jwtCheck;
