@@ -1,6 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
+const jwtAuthz = require('express-jwt-authz');
+
+const jwtCheck = require('../jwtCheck.js');
+
+
+//check scopes
+let checkWriteExamAuth = jwtAuthz(['write:exams']);
 
 
 //exam schema and model
@@ -25,7 +32,7 @@ const Exam = mongoose.model('Exam', examSchema);
 function examRoutes (app) {
   app.route('/api/exams')
   
-  .post(function (req, res) {
+  .post(jwtCheck, checkWriteExamAuth, function (req, res) {
     const newExam = new Exam({
       courseId: req.body.courseId,
       examName: req.body.examName,
@@ -68,7 +75,7 @@ function examRoutes (app) {
           }
         })
       })
-      .put(function(req, res){
+      .put(jwtCheck, checkWriteExamAuth, function(req, res){
         
         let updateObj = {};
         

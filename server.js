@@ -16,6 +16,8 @@ const jwks = require('jwks-rsa');
 var apiRoutes         = require('./routes/api.js');
 const jwtCheck = require('./jwtCheck.js');
 
+
+
 //middlewares
 app.use(cors({origin: '*'})); //copied from FCC project; update to use githubpages frontend only
 app.use(bodyParser.json());
