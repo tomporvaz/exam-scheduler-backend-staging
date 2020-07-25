@@ -12,7 +12,9 @@ const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
 
 
+
 var apiRoutes         = require('./routes/api.js');
+const jwtCheck = require('./jwtCheck.js');
 
 //middlewares
 app.use(cors({origin: '*'})); //copied from FCC project; update to use githubpages frontend only
@@ -21,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());  //for security
 app.use(fileupload());
 
-//Auth
+//Auth0 code for authorization
 var jwtCheck = jwt({
   secret: jwks.expressJwtSecret({
     cache: true,
@@ -34,9 +36,9 @@ var jwtCheck = jwt({
   algorithms: ['RS256']
 });
 
-app.use(jwtCheck);
+//app.use(jwtCheck);
 
-app.get('/authorized', function (req, res) {
+app.get('/authorized', jwtCheck, function (req, res) {
   res.send('Secured Resource');
 });
 
