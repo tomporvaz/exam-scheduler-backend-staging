@@ -130,4 +130,4 @@ function examRoutes (app) {
     exports.examSchema = examSchema;
     exports.Exam = Exam;
     exports.examRoutes = examRoutes;
-    
+    exports.arrFlattenExam = arrFlattenExam;

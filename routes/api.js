@@ -8,6 +8,7 @@ const loadExams = require('../test/loadExams.js');
 let sampleExams = require('../test/sampleExams.json');
 const exams = require('./exams.js');
 const filters = require('./filters.js');
+const exportRoute = require('./export-exams.js');
 
 
 const CONNECTION_STRING = process.env.DB; //MongoClient.connect(CONNECTION_STRING, function(err, db) {});
@@ -32,6 +33,11 @@ module.exports = function (app) {
   EXAM ROUTES
   */
   exams.examRoutes(app);
+
+  /*
+  EXPORT EXAMS ROUTES
+  */
+  exportRoute.exportExams(app);
   
   /* 
   FILTER ROUTES
