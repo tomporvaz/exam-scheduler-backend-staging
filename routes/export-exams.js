@@ -11,8 +11,17 @@ function exportExams(app){
       function(err, doc){
         if(err){console.error(err)}
         else{
+          let flattenedExams = doc.map(exam => arrFlattenExam(exam));
+          let examsWithReadableTimes = flattenedExams.map(exam => {
+            let newExam = {...exam};
+            newExam.startTime = moment(exam.examStart).format("dddd, MMMM Do YYYY, h:mm:ss a");
+            newExam.endTime = moment(exam.examEnd).format("dddd, MMMM Do YYYY, h:mm:ss a");
+            
+            return(newEaxm);
+          })
           
-          res.json(doc.map(exam => arrFlattenExam(exam)));   
+          res.json(examsWithReadableTimes);   
+
         }
       })
     })
