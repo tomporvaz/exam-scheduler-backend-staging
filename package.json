@@ -8,17 +8,20 @@
     "test": "mocha"
   },
   "dependencies": {
-    "body-parser": "1.19.0",
+    "express": "^4.16.4",
     "chai": "4.2.0",
+    "mocha": "6.2.2",
     "chai-http": "4.3.0",
     "cors": "2.8.5",
-    "csvtojson": "2.0.10",
-    "express": "^4.16.4",
-    "express-fileupload": "1.1.6",
-    "express-jwt": "6.0.0",
-    "express-jwt-authz": "2.4.0",
+    "body-parser": "1.19.0",
+    "mongodb": "3.4.1",
     "helmet": "3.21.2",
+    "mongoose": "5.8.2",
+    "express-fileupload": "1.1.6",
+    "csvtojson": "2.0.10",
+    "express-jwt": "6.0.0",
     "jwks-rsa": "1.8.1",
+<<<<<<< HEAD
 <<<<<<< HEAD
     "mocha": "6.2.2",
     "moment": "^2.27.0",
@@ -28,6 +31,9 @@
     "express-jwt-authz": "2.4.0",
     "moment": "2.27.0"
 >>>>>>> uninstallMoment
+=======
+    "express-jwt-authz": "2.4.0"
+>>>>>>> parent of c65baa2... Convert date-times to readable format.
   },
   "engines": {
     "node": "8.x"
