@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const { Exam, arrFlattenExam } = require('./exams');
+const moment = require('moment');
 
 
 function exportExams(app){
-  app.get('/api/exportExams', function(req, res){
+  app.get('/api/export-exams', function(req, res){
     Exam.find({examSemester: req.query.semester})
     .populate('courseId')
     .sort({'examStart': 'ascending'})
@@ -14,8 +15,8 @@ function exportExams(app){
           let flattenedExams = doc.map(exam => arrFlattenExam(exam));
           let examsWithReadableTimes = flattenedExams.map(exam => {
             let newExam = {...exam};
-            newExam.startTime = moment(exam.examStart).format("dddd, MMMM Do YYYY, h:mm:ss a");
-            newExam.endTime = moment(exam.examEnd).format("dddd, MMMM Do YYYY, h:mm:ss a");
+            newExam.examStart = moment(exam.examStart).format("MMMM Do YYYY, h:mm:ss a");
+            newExam.examEnd = moment(exam.examEnd).format("MMMM Do YYYY, h:mm:ss a");
             
             return(newEaxm);
           })
