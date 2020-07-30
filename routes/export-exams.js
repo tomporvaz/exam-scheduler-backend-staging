@@ -18,7 +18,7 @@ function exportExams(app){
             newExam.examStart = moment(exam.examStart).format("MMMM Do YYYY, h:mm:ss a");
             newExam.examEnd = moment(exam.examEnd).format("MMMM Do YYYY, h:mm:ss a");
             
-            return(newEaxm);
+            return(newExam);
           })
           
           res.json(examsWithReadableTimes);   
