@@ -19,10 +19,15 @@
     "express-jwt-authz": "2.4.0",
     "helmet": "3.21.2",
     "jwks-rsa": "1.8.1",
+<<<<<<< HEAD
     "mocha": "6.2.2",
     "moment": "^2.27.0",
     "mongodb": "3.4.1",
     "mongoose": "5.8.2"
+=======
+    "express-jwt-authz": "2.4.0",
+    "moment": "2.27.0"
+>>>>>>> uninstallMoment
   },
   "engines": {
     "node": "8.x"
