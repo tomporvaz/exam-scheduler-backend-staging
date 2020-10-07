@@ -80,9 +80,9 @@ module.exports = function (app) {
   .get(function (req, res){
     
     //retrieve list of courses from mongo based on semester query
-    Course.find(
-      {semester: req.query.semester}, //TODO: replace 9909 with req.query.semester
-      function(err, doc){
+    Course.find({semester: req.query.semester})
+      .sort({'unit': 'asc', 'subject': 'asc', 'course': 'asc'}) //sort courses before sending to frontend
+      .exec(function(err, doc){
         if(err){console.error(err)};
         res.json(doc);
       })
