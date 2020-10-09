@@ -110,8 +110,19 @@ module.exports = function (app) {
         
         for(let i = 0; i < jsonCourses.length; i++){
           newCourse = new Course(jsonCourses[i]);
-          let savedCourse = await newCourse.save()
-          arrayCourseUploads.push( `Saved ${jsonCourses[i].courseTitle} with id ${savedCourse._id}`)
+
+          //if course semester and index match a record already in database, then update record, otherwise, add new course
+          let originalCourse = await Course.findOne({ semester: newCourse.semester, index: newCourse.index }).exec();
+
+          if(originalCourse){
+            console.log(`Update and save ${originalCourse.courseTitle}`);
+            //push to log array after update
+          } else {
+            let savedCourse = await newCourse.save() //save newCourse to database
+            arrayCourseUploads.push( `Saved ${jsonCourses[i].courseTitle} with id ${savedCourse._id}`) //add saved course to log to return to user
+          }
+
+          
         }
       } catch (err){
         console.error(err);
@@ -121,6 +132,7 @@ module.exports = function (app) {
         res.send(`Completed Saves: ${arrayCourseUploads}`)
       }
       
+      //call async function
       convertAndUploadCSV();
       
     })
