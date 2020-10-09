@@ -144,7 +144,9 @@ module.exports = function (app) {
               (${newCourse.index}) on document with ID ${updatedCourse._id}`)//push to log array after update
           } else {
             let savedCourse = await newCourse.save() //save newCourse to database
-            arrayCourseUploads.push( `Saved ${jsonCourses[i].courseTitle} with id ${savedCourse._id}`) //add saved course to log to return to user
+            arrayCourseUploads.push( `Saved ${newCourse.semester} - 
+              ${newCourse.unit}:${newCourse.subject}:${newCourse.course}:${newCourse.section} ${newCourse.courseTitle} 
+              (${newCourse.index}) with id ${savedCourse._id}`) //add saved course to log to return to user
           }
 
           
