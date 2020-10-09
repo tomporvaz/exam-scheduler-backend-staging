@@ -115,8 +115,33 @@ module.exports = function (app) {
           let originalCourse = await Course.findOne({ semester: newCourse.semester, index: newCourse.index }).exec();
 
           if(originalCourse){
+            originalCourse.overwrite({
+              uniqueId: newCourse.uniqueId,
+              semester: newCourse.semester,
+              unit: newCourse.unit,
+              subject: newCourse.subject,
+              course: newCourse.course,
+              section: newCourse.section,
+              index: newCourse.index,
+              courseTitle: newCourse.courseTitle,
+              assignedInstructor: newCourse.assignedInstructor,
+              day: newCourse.day,
+              courseStartTime: newCourse.courseStartTime,
+              courseEndTime: newCourse.courseEndTime,
+              building: newCourse.buidling,
+              room: newCourse.room,
+              program: newCourse.program,
+              level: newCourse.level,
+              examsoft: newCourse.examsoft,
+              final: newCourse.final,
+              enrollment: newCourse.enrollment,
+              sectionNickname: newCourse.sectionNickname
+            })
+            let updatedCourse = await originalCourse.save();
             console.log(`Update and save ${originalCourse.courseTitle}`);
-            //push to log array after update
+            arrayCourseUploads.push( `Updated ${newCourse.semester} - 
+              ${newCourse.unit}:${newCourse.subject}:${newCourse.course}:${newCourse.section} ${newCourse.courseTitle} 
+              (${updatedCourse.index})`)//push to log array after update
           } else {
             let savedCourse = await newCourse.save() //save newCourse to database
             arrayCourseUploads.push( `Saved ${jsonCourses[i].courseTitle} with id ${savedCourse._id}`) //add saved course to log to return to user
