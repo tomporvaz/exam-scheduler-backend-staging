@@ -75,6 +75,7 @@ function examRoutes (app) {
           }
         })
       })
+
       .put(jwtCheck, checkWriteExamAuth, function(req, res){
         
         let updateObj = {};
@@ -100,6 +101,15 @@ function examRoutes (app) {
           if(err){console.error(err)}
           else{
             res.json(arrFlattenExam(doc)); //send new doc
+          }
+        })
+      })
+
+      .delete(jwtCheck, checkWriteExamAuth, function(req, res){
+        Exam.findByIdAndDelete(req.query.examId, function(err, doc){
+          if(err){console.error(err)}
+          else{
+            res.json(doc);
           }
         })
       })
