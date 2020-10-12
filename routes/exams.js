@@ -107,7 +107,10 @@ function examRoutes (app) {
 
       .delete(jwtCheck, checkWriteExamAuth, function(req, res){
         Exam.findByIdAndDelete(req.query.examId, function(err, doc){
-          if(err){console.error(err)}
+          if(err){
+            console.error(err);
+            next(err);
+          }
           else{
             res.json(doc);
           }
